@@ -7,9 +7,11 @@ interface DownloadItemProps {
   remoteUrl: string;
   localUrl: string;
   deleted?: boolean;
+  onDelete: () => void;
+  onSoftDelete: () => void;
 }
 
-export const DownloadItem: React.FC<DownloadItemProps> = ({ remoteUrl, localUrl, name, deleted }) => {
+export const DownloadItem: React.FC<DownloadItemProps> = ({ remoteUrl, localUrl, name, deleted, onDelete, onSoftDelete }) => {
 
   const imageSrc = getImageSrcFromFilename(name);
 
@@ -17,6 +19,7 @@ export const DownloadItem: React.FC<DownloadItemProps> = ({ remoteUrl, localUrl,
     <img src={imageSrc} alt=""/>
     <h1>{name || 'Untitled'} {deleted && 'Deleted'}</h1>
     <p>{remoteUrl}</p>
-    {!deleted && <button>Show in folder</button>}
+    {!deleted && <button onClick={onSoftDelete}>Show in folder</button>}
+    <button onClick={onDelete}>Delete </button>
   </div>);
 }
