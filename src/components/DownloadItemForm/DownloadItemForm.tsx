@@ -1,10 +1,12 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
 interface DownloadItemFormProps {
   onNewItem: (text: string, url: string, deleted: boolean) => void;
 }
 
 export const DownloadItemForm: React.FC<DownloadItemFormProps> = ({ onNewItem }) => {
+  const history = useHistory();
 
   const [ text, setText ] = React.useState('');
   const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -26,6 +28,7 @@ export const DownloadItemForm: React.FC<DownloadItemFormProps> = ({ onNewItem })
     setText('');
     setUrl('');
     setDeleted(false);
+    history.push('/list');
   }
 
   return <div>

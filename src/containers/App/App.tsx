@@ -1,7 +1,8 @@
 import React from 'react';
-import { Count } from '../../components/Count/Count';
+import { BrowserRouter, HashRouter, Link, MemoryRouter, Route } from 'react-router-dom';
 import { DownloadItem } from '../../components/DownloadItem/DownloadItem';
 import { DownloadItemForm } from '../../components/DownloadItemForm/DownloadItemForm';
+import { Home } from '../Home/Home';
 
 const initialDownloads = [
   {
@@ -67,28 +68,47 @@ export const App = () => {
 
   return (<main>
 
-    <DownloadItemForm onNewItem={handleNewElement} />
+    <BrowserRouter>
 
-    {downloads.map(({ filename, remoteUrl, localUrl, deleted, id }) => {
-      const intermediateDelete = () => {
-        handleDelete(id);
-      }
-      const intermediateSoftDelete = () => {
-        handleSoftDelete(id);
-      }
-      return <DownloadItem
-        key={id}
-        name={filename}
-        remoteUrl={remoteUrl}
-        localUrl={localUrl}
-        deleted={deleted}
-        onDelete={intermediateDelete}
-        onSoftDelete={intermediateSoftDelete}
-        />;
-    })}
+      <Link to="/home">ir al home</Link>
+      <Link to="/form">ir al form</Link>
+      <Link to="/list">ir al list</Link>
 
-    <p>
-      {downloads.map(({ filename }) => filename).join(' - ')}
-    </p>
+      <Route path="/" exact render={() => <h1>Root</h1>} />
+
+      <Route path="/one" render={() => <h1>One</h1>} />
+
+      <Route path="/home" render={() => <Home list={downloads} />} />
+
+      <Route path="/form" render={() => <DownloadItemForm onNewItem={handleNewElement} />} />
+
+      <Route path="/list" render={() => {
+        return <div>
+          {downloads.map(({ filename, remoteUrl, localUrl, deleted, id }) => {
+            const intermediateDelete = () => {
+              handleDelete(id);
+            }
+            const intermediateSoftDelete = () => {
+              handleSoftDelete(id);
+            }
+            return <DownloadItem
+              key={id}
+              id={id}
+              name={filename}
+              remoteUrl={remoteUrl}
+              localUrl={localUrl}
+              deleted={deleted}
+              onDelete={intermediateDelete}
+              onSoftDelete={intermediateSoftDelete}
+              />;
+          })}
+        </div>
+      }} />
+
+      <p>
+        {downloads.map(({ filename }) => filename).join(' - ')}
+      </p>
+
+    </BrowserRouter>
   </main>);
 }
