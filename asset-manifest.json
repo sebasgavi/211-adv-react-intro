@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/211-adv-react-intro/static/css/main.59bc69f6.chunk.css",
+    "main.js": "/211-adv-react-intro/static/js/main.690ba8cd.chunk.js",
+    "main.js.map": "/211-adv-react-intro/static/js/main.690ba8cd.chunk.js.map",
+    "runtime-main.js": "/211-adv-react-intro/static/js/runtime-main.91ec86f2.js",
+    "runtime-main.js.map": "/211-adv-react-intro/static/js/runtime-main.91ec86f2.js.map",
+    "static/js/2.5d45ebef.chunk.js": "/211-adv-react-intro/static/js/2.5d45ebef.chunk.js",
+    "static/js/2.5d45ebef.chunk.js.map": "/211-adv-react-intro/static/js/2.5d45ebef.chunk.js.map",
+    "index.html": "/211-adv-react-intro/index.html",
+    "static/css/main.59bc69f6.chunk.css.map": "/211-adv-react-intro/static/css/main.59bc69f6.chunk.css.map",
+    "static/js/2.5d45ebef.chunk.js.LICENSE.txt": "/211-adv-react-intro/static/js/2.5d45ebef.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.91ec86f2.js",
+    "static/js/2.5d45ebef.chunk.js",
+    "static/css/main.59bc69f6.chunk.css",
+    "static/js/main.690ba8cd.chunk.js"
+  ]
+}
