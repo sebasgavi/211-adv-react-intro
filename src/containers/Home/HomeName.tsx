@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useParams, useRouteMatch } from 'react-router';
+import { Redirect, useParams } from 'react-router';
 import { DownloadItemType } from '../../utils/downloadItemType';
 
 interface HomeNameProps {
@@ -11,6 +11,10 @@ export const HomeName: React.FC<HomeNameProps> = ({ list }) => {
   const { id } = useParams<{ id: string }>();
 
   const item = list.find((elem) => elem.id === parseInt(id));
+
+  if(!item) {
+    return <Redirect to="/404" push={false} />;
+  }
 
   return <div>
     <p>Name: {item?.filename}</p>

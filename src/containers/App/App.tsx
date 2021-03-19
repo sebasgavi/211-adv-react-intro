@@ -68,7 +68,7 @@ export const App = () => {
 
   return (<main>
 
-    <BrowserRouter>
+    <HashRouter basename={process.env.PUBLIC_URL}>
 
       <Link to="/home">ir al home</Link>
       <Link to="/form">ir al form</Link>
@@ -77,6 +77,8 @@ export const App = () => {
       <Route path="/" exact render={() => <h1>Root</h1>} />
 
       <Route path="/one" render={() => <h1>One</h1>} />
+
+      <Route path="/404" render={() => <h1>Estás re perdido</h1>} />
 
       <Route path="/home" render={() => <Home list={downloads} />} />
 
@@ -109,6 +111,6 @@ export const App = () => {
         {downloads.map(({ filename }) => filename).join(' - ')}
       </p>
 
-    </BrowserRouter>
+    </HashRouter>
   </main>);
 }
