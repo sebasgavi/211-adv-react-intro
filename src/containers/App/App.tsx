@@ -66,6 +66,19 @@ export const App = () => {
     setDownloads(copy);
   }
 
+  React.useEffect(() => {
+    fetch('https://api.thecatapi.com/v1/breeds', {
+      method: 'GET',
+      headers: {
+        'x-api-key': 'aca118dd-a651-4ceb-9469-15211a0ef6e3'
+      }
+    }).then((res) => {
+      return res.json();
+    }).then((res) => {
+      console.log(res);
+    });
+  }, [ downloads.length ]);
+
   return (<main>
 
     <HashRouter basename={process.env.PUBLIC_URL}>
@@ -84,7 +97,7 @@ export const App = () => {
 
       <Route path="/form" render={() => <DownloadItemForm onNewItem={handleNewElement} />} />
 
-      <Route path="/list" render={() => {
+      <Route path="/" render={() => {
         return <div>
           {downloads.map(({ filename, remoteUrl, localUrl, deleted, id }) => {
             const intermediateDelete = () => {
