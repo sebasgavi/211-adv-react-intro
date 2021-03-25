@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, HashRouter, Link, MemoryRouter, Route } from 'react-router-dom';
 import { DownloadItem } from '../../components/DownloadItem/DownloadItem';
 import { DownloadItemForm } from '../../components/DownloadItemForm/DownloadItemForm';
+import { DownloadsContext } from '../../utils/DownloadsContext';
 import { Home } from '../Home/Home';
 
 const initialDownloads = [
@@ -10,6 +11,7 @@ const initialDownloads = [
     remoteUrl: 'https://files.readme.io/f37829f-widget-mfa-numeric.gif',
     localUrl: 'C:/algo',
     date: 3456789097,
+    filename: 'from context value'
   },
   {
     id: 1,
@@ -31,6 +33,7 @@ const initialDownloads = [
 export const App = () => {
 
   const [ downloads, setDownloads ] = React.useState(initialDownloads);
+  const [ color, setColor ] = React.useState('#000000');
 
   const handleDelete = (id: number) => {
     const copy = downloads.slice();
@@ -66,6 +69,10 @@ export const App = () => {
     setDownloads(copy);
   }
 
+  const handleTest = (name: string) => {
+    console.log('name from somewhere', name);
+  }
+
   React.useEffect(() => {
     fetch('https://api.thecatapi.com/v1/breeds', {
       method: 'GET',
@@ -80,49 +87,54 @@ export const App = () => {
   }, [ downloads.length ]);
 
   return (<main>
-
     <HashRouter basename={process.env.PUBLIC_URL}>
 
-      <Link to="/home">ir al home</Link>
-      <Link to="/form">ir al form</Link>
-      <Link to="/list">ir al list</Link>
+      <DownloadsContext.Provider value={{ list: downloads, handleDelete: handleDelete, handleTest: handleTest, color: color, setColor: setColor }}>
 
-      <Route path="/" exact render={() => <h1>Root</h1>} />
+        <Link to="/home">ir al home</Link>
+        <Link to="/form">ir al form</Link>
+        <Link to="/list">ir al list</Link>
 
-      <Route path="/one" render={() => <h1>One</h1>} />
+        <Route path="/" exact render={() => <h1>Root</h1>} />
 
-      <Route path="/404" render={() => <h1>Estás re perdido</h1>} />
+        <Route path="/one" render={() => <h1>One</h1>} />
 
-      <Route path="/home" render={() => <Home list={downloads} />} />
+        <Route path="/404" render={() => <h1>Estás re perdido</h1>} />
 
-      <Route path="/form" render={() => <DownloadItemForm onNewItem={handleNewElement} />} />
+        <Route path="/home" render={() => <Home />} />
 
-      <Route path="/" render={() => {
-        return <div>
-          {downloads.map(({ filename, remoteUrl, localUrl, deleted, id }) => {
-            const intermediateDelete = () => {
-              handleDelete(id);
-            }
-            const intermediateSoftDelete = () => {
-              handleSoftDelete(id);
-            }
-            return <DownloadItem
-              key={id}
-              id={id}
-              name={filename}
-              remoteUrl={remoteUrl}
-              localUrl={localUrl}
-              deleted={deleted}
-              onDelete={intermediateDelete}
-              onSoftDelete={intermediateSoftDelete}
-              />;
-          })}
-        </div>
-      }} />
+        <Route path="/form" render={() => <DownloadItemForm onNewItem={handleNewElement} />} />
 
-      <p>
-        {downloads.map(({ filename }) => filename).join(' - ')}
-      </p>
+        <Route path="/" render={() => {
+          return <div>
+            {downloads.map(({ filename, remoteUrl, localUrl, deleted, id }) => {
+              const intermediateDelete = () => {
+                handleDelete(id);
+              }
+              const intermediateSoftDelete = () => {
+                handleSoftDelete(id);
+              }
+              return <DownloadItem
+                key={id}
+                id={id}
+                name={filename}
+                remoteUrl={remoteUrl}
+                localUrl={localUrl}
+                deleted={deleted}
+                onDelete={intermediateDelete}
+                onSoftDelete={intermediateSoftDelete}
+                />;
+            })}
+          </div>
+        }} />
+
+        <p style={{ color: color }}>
+          {downloads.map(({ filename }) => filename).join(' - ')}
+        </p>
+      </DownloadsContext.Provider>
+
+      <Home />
+
 
     </HashRouter>
   </main>);

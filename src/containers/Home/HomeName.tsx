@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect, useParams } from 'react-router';
-import { DownloadItemType } from '../../utils/downloadItemType';
+import { DownloadsContext } from '../../utils/DownloadsContext';
 
-interface HomeNameProps {
-  list: DownloadItemType[];
-}
+interface HomeNameProps {}
 
-export const HomeName: React.FC<HomeNameProps> = ({ list }) => {
+export const HomeName: React.FC<HomeNameProps> = () => {
+  const { list, handleDelete } = useContext(DownloadsContext);
+  console.log(list);
 
   const { id } = useParams<{ id: string }>();
 
@@ -16,23 +16,27 @@ export const HomeName: React.FC<HomeNameProps> = ({ list }) => {
 
   const filename = item?.filename;
   React.useEffect(() => {
+    fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${filename}`, {
+      method: 'GET',
+      headers: {
+        'x-api-key': 'aca118dd-a651-4ceb-9469-15211a0ef6e3'
+      }
+    }).then((res) => {
+      return res.json();
+    }).then((res) => {
+      console.log(res);
+      if(res.length > 0) {
+        setImg(res[0].url);
+      }
+    });
   }, [ filename ]);
-  fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${filename}`, {
-    method: 'GET',
-    headers: {
-      'x-api-key': 'aca118dd-a651-4ceb-9469-15211a0ef6e3'
-    }
-  }).then((res) => {
-    return res.json();
-  }).then((res) => {
-    console.log(res);
-    if(res.length > 0) {
-      setImg(res[0].url);
-    }
-  });
 
   if(!item) {
     return <Redirect to="/404" push={false} />;
+  }
+
+  const handleClick = () => {
+    handleDelete(item.id);
   }
 
   return <div>
@@ -40,5 +44,6 @@ export const HomeName: React.FC<HomeNameProps> = ({ list }) => {
     <p>Name: {item?.filename}</p>
     <p>LocalUrl: {item?.localUrl}</p>
     <p>Date: {item?.date}</p>
+    <button onClick={handleClick}>delete</button>
   </div>;
 }

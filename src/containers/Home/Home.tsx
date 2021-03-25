@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import { DownloadItemType } from '../../utils/downloadItemType';
 import { HomeName } from './HomeName';
 
-interface HomeProps {
-  list: DownloadItemType[];
-}
+interface HomeProps {}
 
-export const Home: React.FC<HomeProps> = ({ list }) => {
+export const Home: React.FC<HomeProps> = () => {
 
   return <div>
     <h1>Home</h1>
@@ -23,7 +21,7 @@ export const Home: React.FC<HomeProps> = ({ list }) => {
     <Route path="/home/two" render={() => <h2>two</h2>}/>
     <Route path="/home/three" render={() => <h2>three</h2>}/>
 
-    <Route path="/home/:id" render={() => <HomeName list={list} />} />
+    <Route path="/home/:id" render={() => <HomeName />} />
 
   </div>;
 }
