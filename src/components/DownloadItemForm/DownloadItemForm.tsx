@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import { DownloadsContext } from '../../utils/DownloadsContext';
-import { ColorResult, SketchPicker, SliderPicker } from 'react-color';
+import { ColorResult, SketchPicker } from 'react-color';
 import { Visualization } from '../Visualization/Visualization';
 
 interface DownloadItemFormProps {

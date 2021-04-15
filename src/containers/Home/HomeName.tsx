@@ -6,7 +6,6 @@ interface HomeNameProps {}
 
 export const HomeName: React.FC<HomeNameProps> = () => {
   const { list, handleDelete } = useContext(DownloadsContext);
-  console.log(list);
 
   const { id } = useParams<{ id: string }>();
 
@@ -40,7 +39,7 @@ export const HomeName: React.FC<HomeNameProps> = () => {
   }
 
   return <div>
-    <img src={img} width={400} />
+    <img src={img} alt="" width={400} />
     <p>Name: {item?.filename}</p>
     <p>LocalUrl: {item?.localUrl}</p>
     <p>Date: {item?.date}</p>

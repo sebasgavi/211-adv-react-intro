@@ -15,7 +15,7 @@ export const Visualization: React.FC<VisualizationProps> = () => {
   });
 
   React.useEffect(() => {
-    const app = new p5((sketch) => {
+    new p5((sketch) => {
     
       console.log('canvas created');
       sketch.setup = () => {

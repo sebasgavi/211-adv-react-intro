@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter, HashRouter, Link, MemoryRouter, Route } from 'react-router-dom';
+import { HashRouter, Link, Route } from 'react-router-dom';
 import { DownloadItem } from '../../components/DownloadItem/DownloadItem';
 import { DownloadItemForm } from '../../components/DownloadItemForm/DownloadItemForm';
+import { HooksTest } from '../../components/HooksTest/HooksTest';
 import { DownloadsContext } from '../../utils/DownloadsContext';
 import { Home } from '../Home/Home';
 
@@ -82,9 +83,13 @@ export const App = () => {
     }).then((res) => {
       return res.json();
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
     });
   }, [ downloads.length ]);
+
+  return <div>
+    <HooksTest />
+  </div>
 
   return (<main>
     <HashRouter basename={process.env.PUBLIC_URL}>

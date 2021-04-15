@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import { DownloadItemType } from '../../utils/downloadItemType';
 import { HomeName } from './HomeName';
 
 interface HomeProps {}

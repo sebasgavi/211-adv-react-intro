@@ -1,6 +1,8 @@
 import { createContext } from "react";
 import { DownloadItemType } from "./downloadItemType";
 
+const setColor: React.Dispatch<React.SetStateAction<string>> = () => {}
+
 export const DownloadsContext = createContext({
   list: [
     {
@@ -16,6 +18,6 @@ export const DownloadsContext = createContext({
   },
   handleTest: (name: string) => {},
   color: '',
-  setColor: (color: string) => {},
+  setColor: setColor,
 });
 
